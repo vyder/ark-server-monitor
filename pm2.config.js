@@ -1,7 +1,7 @@
 module.exports = {
     apps: [{
         name: "ark-monitor",
-        script: "./monitor.js",
+        script: "./index.js",
         env_production: {
             NODE_ENV: "production"
         },
