@@ -1,5 +1,6 @@
 require('dotenv-yaml').config()
 const config = require('./config')
+const logger = require('./logger')(config)
 
 const { Webhook } = require('discord-webhook-node')
 const hook = new Webhook(config.HOOK_URL)
@@ -10,33 +11,32 @@ const INTERVAL = config.PING_INTERVAL * SECONDS
 
 let serverStatus = null
 
-console.log(`Querying: ${config.HOST}:${config.PORT}...`)
-let count = 1
-
-const log = msg => {
-    console.log(`${count}: ${msg}`)
-    count += 1
-}
+logger.info(`Querying: ${config.HOST}:${config.PORT}...`)
 
 const tellDiscord = (...args) => {
     if (config.ENABLE_DISCORD) {
-        hook.send(...args)
+        try {
+            hook.send(...args)
+        } catch(error) {
+            logger.error(`DISCORD:`, error)
+        }
     }
+    logger.info(`DISCORD: `, ...args)
 }
 
 const query = () => Gamedig.query({ type: 'arkse', host: config.HOST, port: config.PORT })
     .then(state  => {
-        log(`Server is online: ${state.name}`)
+        logger.info(`Server is online: ${state.name}`)
         if (!serverStatus) {
-            console.log(`Notify...`)
+            logger.info(`Notify...`)
             tellDiscord(`Server is online: ${state.name}`)
             serverStatus = state
         }
     })
     .catch(error => {
-        log("Server is offline")
+        logger.info("Server is offline")
         if (serverStatus) {
-            console.log(`Notify...`)
+            logger.info(`Notify...`)
             tellDiscord(`Server is offline`)
             serverStatus = null
         }
