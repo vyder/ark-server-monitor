@@ -11,6 +11,7 @@
     "steam"
   ],
   "author": "Vidur Murali <vidur@monkeychai.com>",
+  "repository": "git@github.com:vyder/ark-server-monitor.git",
   "license": "MIT",
   "dependencies": {
     "discord-webhook-node": "^1.1.8",
