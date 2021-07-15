@@ -1,0 +1,19 @@
+{
+  "name": "ark-server-monitor",
+  "version": "1.0.0",
+  "description": "Monitors your ARK server's uptime",
+  "scripts": {
+    "start": "node monitor.js"
+  },
+  "keywords": [
+    "ark-survival",
+    "steam"
+  ],
+  "author": "Vidur Murali <vidur@monkeychai.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8",
+    "dotenv-yaml": "^0.1.4",
+    "gamedig": "^3.0.7"
+  }
+}
