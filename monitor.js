@@ -1,16 +1,16 @@
 require('dotenv-yaml').config()
-const { HOST, PORT, HOOK_URL, ENABLE_DISCORD, PING_INTERVAL } = process.env
+const config = require('./config')
 
 const { Webhook } = require('discord-webhook-node')
-const hook = new Webhook(HOOK_URL)
+const hook = new Webhook(config.HOOK_URL)
 
 const Gamedig  = require('gamedig');
 const SECONDS  = 1000
-const INTERVAL = PING_INTERVAL * SECONDS
+const INTERVAL = config.PING_INTERVAL * SECONDS
 
 let serverStatus = null
 
-console.log(`Querying: ${HOST}:${PORT}...`)
+console.log(`Querying: ${config.HOST}:${config.PORT}...`)
 let count = 1
 
 const log = msg => {
@@ -19,12 +19,12 @@ const log = msg => {
 }
 
 const tellDiscord = (...args) => {
-    if (ENABLE_DISCORD) {
+    if (config.ENABLE_DISCORD) {
         hook.send(...args)
     }
 }
 
-const query = () => Gamedig.query({ type: 'arkse', host: HOST, port: PORT })
+const query = () => Gamedig.query({ type: 'arkse', host: config.HOST, port: config.PORT })
     .then(state  => {
         log(`Server is online: ${state.name}`)
         if (!serverStatus) {
