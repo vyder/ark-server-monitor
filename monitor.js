@@ -13,15 +13,15 @@ let serverStatus = null
 
 logger.info(`Querying: ${config.HOST}:${config.PORT}...`)
 
-const tellDiscord = (...args) => {
+const tellDiscord = msg => {
     if (config.ENABLE_DISCORD) {
         try {
-            hook.send(...args)
+            // hook.send(msg)
         } catch(error) {
             logger.error(`DISCORD:`, error)
         }
     }
-    logger.info(`DISCORD: `, ...args)
+    logger.info(`DISCORD: ${msg}`)
 }
 
 const query = () => Gamedig.query({ type: 'arkse', host: config.HOST, port: config.PORT })
