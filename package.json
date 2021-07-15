@@ -2,8 +2,9 @@
   "name": "ark-server-monitor",
   "version": "1.0.0",
   "description": "Monitors your ARK server's uptime",
+  "main": "index.js",
   "scripts": {
-    "start": "node monitor.js"
+    "start": "node index.js"
   },
   "keywords": [
     "ark-survival",
