@@ -22,9 +22,10 @@ const notifyDiscord = ({ serverIsUp, state }) => {
             message.setColor("#E53E3E")
 
         } else {
+            const nameText = state.name + (state.map ? ` [${state.map}]` : '')
             message.setTitle('Server is online')
             message.setColor("#38A169")
-            message.addField(`${state.name} [${state.map}]`, state.connect)
+            message.addField(nameText, state.connect)
             message.addField("Ping", state.ping)
         }
 
